@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/9p1892f5b1yno8ac?svg=true)](https://ci.appveyor.com/project/LSimutina/avto2-4-bdd-1)
