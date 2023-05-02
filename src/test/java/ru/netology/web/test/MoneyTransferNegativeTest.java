@@ -55,7 +55,7 @@ class MoneyTransferNegativeTest {
         var secondCardBalance = dashboardPage.getCardBalance(secondCard);
         var amount = generateValidAmount(firstCardBalance);
         var transactionPage = dashboardPage.transferMoney(secondCard);
-        transactionPage.invalidtransferOfMoney(String.valueOf(amount), invalidCard);
+        transactionPage.invalidTransferOfMoney(String.valueOf(amount), invalidCard);
 
         $("[data-test-id='error-notification'] .notification__content")
                 .shouldHave(text("Ошибка! Произошла ошибка"))

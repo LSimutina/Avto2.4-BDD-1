@@ -35,7 +35,7 @@ public class TransactionPage {
     }
 
     // для невалидного теста
-    public void invalidtransferOfMoney(String amount, DataHelper.InvalidCardsInfo invalidCardsInfo) {
+    public void invalidTransferOfMoney(String amount, DataHelper.InvalidCardsInfo invalidCardsInfo) {
         sumAmount.setValue(amount);
         fromСard.setValue(invalidCardsInfo.getCardNumberInvalid());
         replenish.click();
@@ -43,10 +43,6 @@ public class TransactionPage {
 
     public void findErrorMessage(String expectedText){
         errorMessage.shouldBe(exactText(expectedText), Duration.ofSeconds(15)).shouldBe(visible);
-    }
-
-    public void invalidCard() {
-        $(".notification__content").should(Condition.text("Ошибка! Произошла ошибка"));
     }
 
     public void invalidLimin() {

@@ -58,7 +58,6 @@ public class DataHelper {
     }
 
     // для невалидных тестов
-
     @Value
     public static class InvalidAuthInfo {
         private String loginInvalid;
