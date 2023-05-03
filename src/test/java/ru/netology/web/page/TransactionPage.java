@@ -6,11 +6,9 @@ import ru.netology.web.data.DataHelper;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
-import static java.lang.String.valueOf;
 
 public class TransactionPage {
     private SelenideElement sumAmount = $("[data-test-id='amount'] input");
@@ -18,6 +16,7 @@ public class TransactionPage {
     private SelenideElement replenish = $("[data-test-id='action-transfer']");
     private SelenideElement transferHead = $(byText("Пополнение карты"));
     private SelenideElement errorMessage = $("[data-test-id='error-message']");
+    private SelenideElement errorCard = $("[data-test-id='error-notification'] .notification__content");
 
     public TransactionPage(){
         transferHead.shouldBe(visible);
@@ -34,11 +33,10 @@ public class TransactionPage {
         replenish.click();
     }
 
-    // для невалидного теста
-    public void invalidTransferOfMoney(String amount, DataHelper.InvalidCardsInfo invalidCardsInfo) {
-        sumAmount.setValue(amount);
-        fromСard.setValue(invalidCardsInfo.getCardNumberInvalid());
-        replenish.click();
+        public void invalidTransferOfMoney(String amount, DataHelper.CardsInfo cardsInfo) {
+        transferOfMoney(amount, cardsInfo);
+        errorCard.shouldHave(text("Ошибка! Произошла ошибка"))
+                .shouldBe(visible);
     }
 
     public void findErrorMessage(String expectedText){

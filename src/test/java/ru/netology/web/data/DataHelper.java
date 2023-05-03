@@ -19,7 +19,7 @@ public class DataHelper {
     }
 
     public static AuthInfo getOtherAuthInfo(AuthInfo original) {
-        return new AuthInfo("petya", "123qwerty");
+        return new AuthInfo("wdwdw", "wdwdwdwdwdw");
     }
 
     @Value
@@ -32,7 +32,7 @@ public class DataHelper {
     }
 
     public static VerificationCode getOtherVerificationCodeFor(AuthInfo authInfo) {
-        return new VerificationCode("55555");
+        return new VerificationCode("11111");
     }
 
     @Value
@@ -49,40 +49,15 @@ public class DataHelper {
         return new CardsInfo("5559 0000 0000 0002", "0f3f5c2a-249e-4c3d-8287-09f7a039391d");
     }
 
+    public static CardsInfo getThreeCardNumber() {
+        return new CardsInfo("5559 0000 0000 0003", "1d");
+    }
+
     public static int generateValidAmount(int balance) {
         return new Random().nextInt(balance) + 1;
     }
 
     public static int generateInvalidAmount(int balance) {
         return Math.abs(balance) + new Random().nextInt(10000);
-    }
-
-    // для невалидных тестов
-    @Value
-    public static class InvalidAuthInfo {
-        private String loginInvalid;
-        private String passwordInvalid;
-    }
-
-    public static InvalidAuthInfo getInvalidAuthInfo() {
-        return new InvalidAuthInfo("wdwdw", "wdwdwdwdwdw");
-    }
-
-    @Value
-    public static class InvalidVerificationCode {
-        private String codeInvalid;
-    }
-
-    public static InvalidVerificationCode getVerificationCodeForInvalid() {
-        return new InvalidVerificationCode("11111");
-    }
-
-    @Value
-    public static class InvalidCardsInfo {
-        String cardNumberInvalid;
-    }
-
-    public static InvalidCardsInfo getInvalidCardNumber() {
-        return new InvalidCardsInfo("5559 0000 0000 0003");
     }
 }

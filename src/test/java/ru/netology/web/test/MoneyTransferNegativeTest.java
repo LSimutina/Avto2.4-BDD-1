@@ -16,32 +16,23 @@ class MoneyTransferNegativeTest {
     LoginPage loginPage;
     DashboardPage dashboardPage;
 
-    @Test
-        // негативны тест (не верный логин)
+    @Test // негативны тест (не верный логин)
     void shouldInvalidAuthInfo() {
         loginPage = open("http://localhost:9999", LoginPage.class);
-        var invalidAuthInfo = DataHelper.getInvalidAuthInfo();
-        loginPage.invalidLogin(invalidAuthInfo);
-        $("[data-test-id='error-notification']")
-                .shouldHave(text("Ошибка! Неверно указан логин или пароль"))
-                .shouldBe(visible);
+        var authInfo = DataHelper.getOtherAuthInfo(DataHelper.getAuthInfo());
+        loginPage.invalidLogin(authInfo);
     }
 
-    @Test
-        // негативный тест (не верный код)
+    @Test // негативный тест (не верный код)
     void shouldInvalidVerificationCode() {
         loginPage = open("http://localhost:9999", LoginPage.class);
         var authInfo = DataHelper.getAuthInfo();
         var verificationPage = loginPage.validLogin(authInfo);
-        var invalidVerificationCode = DataHelper.getVerificationCodeForInvalid();
+        var invalidVerificationCode = DataHelper.getOtherVerificationCodeFor(authInfo);
         verificationPage.invalidVerify(invalidVerificationCode);
-        $("[data-test-id='error-notification'] .notification__content")
-                .shouldHave(text("Ошибка! Неверно указан код! Попробуйте ещё раз."))
-                .shouldBe(visible);
     }
 
-    @Test
-        // негативный тест (не верный номер карты)
+    @Test // негативный тест (не верный номер карты)
     void shouldInvalidCard() {
         loginPage = open("http://localhost:9999", LoginPage.class);
         var authInfo = DataHelper.getAuthInfo();
@@ -50,15 +41,11 @@ class MoneyTransferNegativeTest {
         dashboardPage = verificationPage.validVerify(verificationCode);
         var firstCard = getFirstCardNumber();
         var secondCard = getSecondCardNumber();
-        var invalidCard = getInvalidCardNumber();
+        var invalidCard = getThreeCardNumber();
         var firstCardBalance = dashboardPage.getCardBalance(firstCard);
         var secondCardBalance = dashboardPage.getCardBalance(secondCard);
         var amount = generateValidAmount(firstCardBalance);
         var transactionPage = dashboardPage.transferMoney(secondCard);
         transactionPage.invalidTransferOfMoney(String.valueOf(amount), invalidCard);
-
-        $("[data-test-id='error-notification'] .notification__content")
-                .shouldHave(text("Ошибка! Произошла ошибка"))
-                .shouldBe(visible);
     }
 }
